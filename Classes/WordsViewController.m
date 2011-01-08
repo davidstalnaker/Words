@@ -23,6 +23,18 @@
 	definition.text = defText;
 }
 
+- (void)getNewWords {
+	NSString *url = @"http://www.david-stalnaker.com/words/getWords.php";
+	
+	NSURLRequest *theRequest=[NSURLRequest requestWithURL:[NSURL URLWithString:url]
+											  cachePolicy:NSURLRequestUseProtocolCachePolicy
+										  timeoutInterval:60.0];
+	[[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
+	resp = [[NSMutableData alloc] init];
+	
+	
+}
+
 - (IBAction)testWord{
 	if ([[word text] isEqualToString:curWord.word]) {
 		[self gotWordCorrect];
@@ -113,6 +125,8 @@
 	
 	points = 0;
 	
+	[self getNewWords];
+	
 	newWords = [[NSMutableArray alloc] initWithCapacity:20];
 	pastWords = [[NSMutableArray alloc] initWithCapacity:20];
 	
@@ -142,7 +156,29 @@
 	[self resetTimer];
 }
 
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+	NSLog(@"Connection didReceiveResponse: %@ - %@", response, [response MIMEType]);
+}
 
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+	NSLog(@"Connection didReceiveData of length: %u", data.length);
+	
+	[resp appendData:data];
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    NSLog(@"Connection failed! Error - %@ %@",
+          [error localizedDescription],
+          [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    //NSString* json = @"[{\"identifier\":\"9\",\"word\":\"classic\",\"definition\":\"Judged over a period of time to be of the highest quality and outstanding of its kind\"},{\"identifier\":\"16\",\"word\":\"editor\",\"definition\":\"A person who is in charge of and determines the final content of a text, particularly a newspaper or magazine\"},{\"identifier\":\"20\",\"word\":\"parallel\",\"definition\":\"(of lines, planes, surfaces, or objects) Side by side and having the same distance continuously between them\"},{\"identifier\":\"12\",\"word\":\"shelf\",\"definition\":\"A flat length of wood or rigid material, attached to a wall or forming part of a piece of furniture, that provides a surface for the storage or display of objects\"},{\"identifier\":\"11\",\"word\":\"film\",\"definition\":\"A thin flexible strip of plastic or other material coated with light-sensitive emulsion for exposure in a camera, used to produce photographs or motion pictures\"}]";
+	SBJsonParser* parser = [[SBJsonParser alloc] init];
+	NSString *jsonString = [[NSString alloc] initWithData:resp encoding:NSUTF8StringEncoding];
+	NSMutableArray* decoded = [parser objectWithString: jsonString];
+	NSLog(@"%@", decoded);
+}
 
 
 // Override to allow orientations other than the default portrait orientation.

@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "Word.h"
+#import "JSON/JSON.h"
 
 @interface WordsViewController : UIViewController {
+	NSMutableData *resp;
 	
 	IBOutlet UITextField *word;
 	IBOutlet UILabel *definition;
@@ -23,6 +25,7 @@
 	int points;
 }
 
+- (void)getNewWords;
 - (void)setDefinitionLabelText:(NSString*) defText;
 - (IBAction)testWord;
 - (IBAction)skipWord;
