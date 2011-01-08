@@ -46,6 +46,9 @@
 }
 
 - (void)setNewWord {
+	if(curWord) {
+		[pastWords addObject:curWord];	
+	}
 	curWord = [newWords lastObject];
 	[newWords removeLastObject];
 	[self setDefinitionLabelText: curWord.definition];
@@ -63,6 +66,7 @@
 	[secs setFormatWidth:2];
 	[secs setPaddingCharacter:@"0"];
 	timerLabel.text = [NSString stringWithFormat:@"%d:%@", time / 60, [secs stringFromNumber:[NSNumber numberWithInt:time % 60]]];
+	[secs release];
 }
 
 - (void)tick {
@@ -102,6 +106,7 @@
 	}
 	[self setNewWord];
 	[word becomeFirstResponder];
+	[parser release];
 }
 
 
