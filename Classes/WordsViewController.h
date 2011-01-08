@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "Word.h"
 #import "JSON/JSON.h"
+#import "WebConnection.h"
 
-@interface WordsViewController : UIViewController {
-	NSMutableData *resp;
+@interface WordsViewController : UIViewController <WebConnectionDelegate> {
+	WebConnection *connection;
 	
 	IBOutlet UITextField *word;
 	IBOutlet UILabel *definition;
@@ -37,7 +38,7 @@
 - (void)resetTimer;
 - (void)stopTimer;
 - (void)startTimer;
-
+- (void)finishedLoading:(NSMutableData*)data;
 
 @end
 
