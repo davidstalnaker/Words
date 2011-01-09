@@ -17,6 +17,7 @@
 		28D7ACF80DDB3853001CB0EB /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* GameViewController.m */; };
 		630273B812D91CC700BE29A1 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 630273B612D91CC700BE29A1 /* MainViewController.m */; };
 		630273B912D91CC700BE29A1 /* MainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 630273B712D91CC700BE29A1 /* MainWindowController.xib */; };
+		6324FABF12D99394002BB980 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 6324FABE12D99394002BB980 /* Game.m */; };
 		6342F88A12D8584400250B85 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 6342F88112D8584400250B85 /* NSObject+SBJSON.m */; };
 		6342F88B12D8584400250B85 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 6342F88312D8584400250B85 /* NSString+SBJSON.m */; };
 		6342F88C12D8584400250B85 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6342F88512D8584400250B85 /* SBJsonBase.m */; };
@@ -42,6 +43,9 @@
 		630273B512D91CC700BE29A1 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		630273B612D91CC700BE29A1 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		630273B712D91CC700BE29A1 /* MainWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindowController.xib; path = Classes/MainWindowController.xib; sourceTree = "<group>"; };
+		6324FABD12D99394002BB980 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
+		6324FABE12D99394002BB980 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
+		6324FAC012D996C9002BB980 /* GameObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObserver.h; sourceTree = "<group>"; };
 		6342F87F12D8584400250B85 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		6342F88012D8584400250B85 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		6342F88112D8584400250B85 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -90,6 +94,9 @@
 				630273B612D91CC700BE29A1 /* MainViewController.m */,
 				28D7ACF60DDB3853001CB0EB /* GameViewController.h */,
 				28D7ACF70DDB3853001CB0EB /* GameViewController.m */,
+				6324FABD12D99394002BB980 /* Game.h */,
+				6324FABE12D99394002BB980 /* Game.m */,
+				6324FAC012D996C9002BB980 /* GameObserver.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -235,6 +242,7 @@
 				6342F88E12D8584400250B85 /* SBJsonWriter.m in Sources */,
 				6356A29B12D8DEB000A8D116 /* WebConnection.m in Sources */,
 				630273B812D91CC700BE29A1 /* MainViewController.m in Sources */,
+				6324FABF12D99394002BB980 /* Game.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

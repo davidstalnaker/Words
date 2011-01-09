@@ -1,5 +1,5 @@
 //
-//  WordsViewController.m
+//  GameViewController.m
 //  Words
 //
 //  Created by David Stalnaker on 1/3/11.
@@ -9,6 +9,24 @@
 #import "GameViewController.h"
 
 @implementation GameViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+	
+	game = [[Game alloc] initWithObserver:self];
+}
+
+
+
+- (IBAction)testWord{
+	[game testWord:[word text]];
+}
+
+- (IBAction)skipWord {
+	[game skipWord];
+}
+
+
 
 - (void)setDefinitionLabelText:(NSString*) defText {
 	CGRect origFrame = definition.frame;
@@ -23,115 +41,27 @@
 	definition.text = defText;
 }
 
-- (void)getNewWords {
-	[connection newConnectionWithURL:
-	 [NSURL URLWithString: @"http://www.david-stalnaker.com/words/getWords.php"]];
+
+
+- (void)updateWord {
+	[self setDefinitionLabelText: game.curWord.definition];
+	word.text = [game.curWord.word substringToIndex:1];
+	[word becomeFirstResponder];
 }
 
-- (IBAction)testWord{
-	if ([[word text] isEqualToString:curWord.word]) {
-		[self gotWordCorrect];
-	}
+- (void)updateScore {
+	scoreLabel.text = [NSString stringWithFormat:@"%d", game.points];
 }
 
-- (IBAction)skipWord {
-	[self addPoints:-20];
-	[self setNewWord];
-}
-
-- (void)gotWordCorrect {
-	[self addPoints:50];
-	[self addTime:5];
-	[self setNewWord];
-}
-
-- (void)setNewWord {
-	if(curWord) {
-		[pastWords addObject:curWord];	
-	}
-	curWord = [newWords lastObject];
-	[newWords removeLastObject];
-	[self setDefinitionLabelText: curWord.definition];
-	word.text = [curWord.word substringToIndex:1];
-}
-
-- (void)addPoints:(int)numPoints {
-	points += numPoints;
-	scoreLabel.text = [NSString stringWithFormat:@"%d", points];
-}
-
-- (void)addTime:(int)numSecs {
-	time += numSecs;
+- (void)updateTime {
 	NSNumberFormatter *secs = [[NSNumberFormatter alloc] init];
 	[secs setFormatWidth:2];
 	[secs setPaddingCharacter:@"0"];
-	timerLabel.text = [NSString stringWithFormat:@"%d:%@", time / 60, [secs stringFromNumber:[NSNumber numberWithInt:time % 60]]];
+	timerLabel.text = [NSString stringWithFormat:@"%d:%@", game.time / 60, [secs stringFromNumber:[NSNumber numberWithInt:game.time % 60]]];
 	[secs release];
 }
 
-- (void)tick {
-	if(time <= 0) {
-		[self stopTimer];
-	}
-	else {
-		[self addTime:-1];
-	}
-}
 
-- (void)resetTimer {
-	time = 60;
-	timer = [NSTimer scheduledTimerWithTimeInterval:1.0
-											 target:self 
-										   selector:@selector(tick)
-										   userInfo:nil
-											repeats:YES];
-}
-
-- (void)stopTimer {
-	[timer invalidate];
-}
-
-- (void)startTimer {
-	
-}
-
-- (void)finishedLoading:(NSMutableData*)data {
-	SBJsonParser* parser = [[SBJsonParser alloc] init];
-	NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-	NSMutableArray* decoded = [parser objectWithString: jsonString];
-	NSLog(@"%@", decoded);
-	for (NSMutableDictionary* elem in decoded) {
-		[newWords addObject:[[Word alloc] initWithWord:[[elem valueForKey:@"word"] copy]
-											definition:[[elem valueForKey:@"definition"] copy]]];
-	}
-	[self setNewWord];
-	[word becomeFirstResponder];
-	[parser release];
-}
-
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	connection = [[WebConnection alloc] initWithDelegate:self];
-	
-	points = 0;
-	
-	newWords = [[NSMutableArray alloc] initWithCapacity:20];
-	pastWords = [[NSMutableArray alloc] initWithCapacity:20];
-	
-	[self getNewWords];
-	
-	
-	[self resetTimer];
-}
-
-
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
 
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
@@ -144,7 +74,6 @@
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
 }
-
 
 - (void)dealloc {
     [super dealloc];
