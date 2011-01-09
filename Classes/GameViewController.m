@@ -6,9 +6,9 @@
 //  Copyright 2011 Rochester Institute of Technology. All rights reserved.
 //
 
-#import "WordsViewController.h"
+#import "GameViewController.h"
 
-@implementation WordsViewController
+@implementation GameViewController
 
 - (void)setDefinitionLabelText:(NSString*) defText {
 	CGRect origFrame = definition.frame;

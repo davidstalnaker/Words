@@ -11,7 +11,7 @@
 #import "JSON/JSON.h"
 #import "WebConnection.h"
 
-@interface WordsViewController : UIViewController <WebConnectionDelegate> {
+@interface GameViewController : UIViewController <WebConnectionDelegate> {
 	WebConnection *connection;
 	
 	IBOutlet UITextField *word;
