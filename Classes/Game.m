@@ -23,6 +23,9 @@
 		newWords = [[NSMutableArray alloc] initWithCapacity:20];
 		pastWords = [[NSMutableArray alloc] initWithCapacity:20];
 		
+		waitingOnData = YES;
+		openConnection = NO;
+		
 		time = 60;
 		points = 0;
 		
@@ -51,18 +54,29 @@
 }
 
 - (void)getNewWords {
-	[connection newConnectionWithURL:
-	 [NSURL URLWithString: @"http://www.david-stalnaker.com/words/getWords.php"]];
+	if(!openConnection) {
+		openConnection = YES;
+		[connection newConnectionWithURL:
+		 [NSURL URLWithString: @"http://www.david-stalnaker.com/words/getWords.php"]];
+	}
 }
 
 
 - (void)setNewWord {
-	if(curWord) {
-		[pastWords addObject:curWord];	
+	if([newWords count] < 3) {
+		[self getNewWords];
 	}
-	curWord = [newWords lastObject];
-	[newWords removeLastObject];
-	[observer updateWord];
+	if([newWords count] > 0) {
+		if(curWord) {
+			[pastWords addObject:curWord];	
+		}
+		curWord = [newWords lastObject];
+		[newWords removeLastObject];
+		[observer updateWord];
+	}
+	else {
+		waitingOnData = YES;
+	}
 }
 
 - (void)addPoints:(int)numPoints {
@@ -116,7 +130,12 @@
 		[newWords addObject:[[Word alloc] initWithWord:[[elem valueForKey:@"word"] copy]
 											definition:[[elem valueForKey:@"definition"] copy]]];
 	}
-	[self setNewWord];
+	if(waitingOnData) {
+		[self setNewWord];
+	}
+	openConnection = NO;
+	waitingOnData = NO;
+	
 	[parser release];
 }
 

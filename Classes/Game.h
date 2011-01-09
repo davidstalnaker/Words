@@ -22,6 +22,8 @@
 	NSMutableArray *pastWords;
 	
 	NSTimer *timer;
+	BOOL waitingOnData;
+	BOOL openConnection;
 	int time;
 	int points;
 }
