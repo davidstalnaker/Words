@@ -18,6 +18,8 @@
 
 - (void)startGame {
 	[navController pushViewController:viewController animated:YES];
+	game = [[Game alloc] initWithObserver:viewController];
+	[viewController setGame:game];
 }
 
 #pragma mark -

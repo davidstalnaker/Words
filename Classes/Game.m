@@ -23,14 +23,15 @@
 		newWords = [[NSMutableArray alloc] initWithCapacity:20];
 		pastWords = [[NSMutableArray alloc] initWithCapacity:20];
 		
-		waitingOnData = YES;
+		waitingOnData = NO;
 		openConnection = NO;
 		
 		time = 60;
 		points = 0;
 		
 		[self getNewWords];
-		[self startTimer];
+		waitingOnData = YES;
+		[observer startWaiting];
 	}
 	return self;
 }
@@ -76,6 +77,8 @@
 	}
 	else {
 		waitingOnData = YES;
+		[observer startWaiting];
+		[self stopTimer];
 	}
 }
 
@@ -108,7 +111,7 @@
 
 - (void)stopTimer {
 	[timer invalidate];
-	[timer release];
+	timer = nil;
 }
 
 - (void)resetTimer {
@@ -132,6 +135,8 @@
 	}
 	if(waitingOnData) {
 		[self setNewWord];
+		[observer stopWaiting];
+		[self startTimer];
 	}
 	openConnection = NO;
 	waitingOnData = NO;

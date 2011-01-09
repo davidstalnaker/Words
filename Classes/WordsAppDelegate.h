@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MainViewController.h"
+#import "Game.h"
 #define UIAppDelegate \
 ((WordsAppDelegate *)[UIApplication sharedApplication].delegate)
 
@@ -18,6 +19,8 @@
 	UINavigationController *navController;
     GameViewController *viewController;
 	MainViewController *mainWindowController;
+	
+	Game *game;
 }
 
 - (void)startGame;

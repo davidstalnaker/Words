@@ -17,6 +17,7 @@
 	IBOutlet UILabel *definition;
 	IBOutlet UILabel *scoreLabel;
 	IBOutlet UILabel *timerLabel;
+	IBOutlet UIActivityIndicatorView *spinner;
 	
 	Game* game;
 }
@@ -24,11 +25,16 @@
 - (IBAction)testWord;
 - (IBAction)skipWord;
 
+
 - (void)setDefinitionLabelText:(NSString*) defText;
 
 - (void)updateWord;
 - (void)updateScore;
 - (void)updateTime;
+- (void)startWaiting;
+- (void)stopWaiting;
+
+@property (readwrite, retain) Game *game;
 
 @end
 

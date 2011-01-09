@@ -13,4 +13,6 @@
 - (void) updateWord;
 - (void) updateTime;
 - (void) updateScore;
+- (void)startWaiting;
+- (void)stopWaiting;
 @end

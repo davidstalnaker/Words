@@ -10,10 +10,10 @@
 
 @implementation GameViewController
 
+@synthesize game;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
-	game = [[Game alloc] initWithObserver:self];
 }
 
 
@@ -59,6 +59,17 @@
 	[secs setPaddingCharacter:@"0"];
 	timerLabel.text = [NSString stringWithFormat:@"%d:%@", game.time / 60, [secs stringFromNumber:[NSNumber numberWithInt:game.time % 60]]];
 	[secs release];
+}
+
+- (void)startWaiting {
+	[spinner startAnimating];
+	[self setDefinitionLabelText: @""];
+	word.text = @"";
+}
+
+- (void)stopWaiting {
+	[spinner stopAnimating];
+	[self updateWord];
 }
 
 
