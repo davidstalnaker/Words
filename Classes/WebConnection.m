@@ -19,12 +19,16 @@
 	return self;
 }
 
-- (void)newConnectionWithURL:(NSURL*)url {
+- (void)newConnectionWithURL:(NSURL*)url andPostData:(NSData *)postData{
 	
-	NSURLRequest *theRequest=[NSURLRequest requestWithURL:url
-											  cachePolicy:NSURLRequestUseProtocolCachePolicy
-										  timeoutInterval:60.0];
-	connection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self];
+	NSMutableURLRequest *request = 
+	[NSMutableURLRequest requestWithURL:url
+							cachePolicy:NSURLRequestUseProtocolCachePolicy
+						timeoutInterval:60.0];
+	
+	[request setHTTPMethod: @"POST"];
+	[request setHTTPBody: postData];
+	connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 	if(connection) {
 		recievedData = [[NSMutableData alloc] init];
 	}

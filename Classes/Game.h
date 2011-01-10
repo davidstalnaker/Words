@@ -26,6 +26,8 @@
 	BOOL openConnection;
 	int time;
 	int points;
+	
+	int numWordsPerConnection;
 }
 
 - (id)initWithObserver:(id <GameObserver>)obs;

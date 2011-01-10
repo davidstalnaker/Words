@@ -29,6 +29,8 @@
 		time = 60;
 		points = 0;
 		
+		numWordsPerConnection = 10;
+		
 		[self getNewWords];
 		waitingOnData = YES;
 		[observer startWaiting];
@@ -57,14 +59,17 @@
 - (void)getNewWords {
 	if(!openConnection) {
 		openConnection = YES;
+		NSString *postData = [NSString stringWithFormat:@"numWords=%d", numWordsPerConnection];helf
 		[connection newConnectionWithURL:
-		 [NSURL URLWithString: @"http://www.david-stalnaker.com/words/getWords.php"]];
+		 [NSURL URLWithString: @"http://www.david-stalnaker.com/words/getWords.php"]
+							 andPostData:
+		 [postData dataUsingEncoding:NSUTF8StringEncoding]];
 	}
 }
 
 
 - (void)setNewWord {
-	if([newWords count] < 3) {
+	if([newWords count] < numWordsPerConnection / 2) {
 		[self getNewWords];
 	}
 	if([newWords count] > 0) {

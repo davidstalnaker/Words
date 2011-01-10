@@ -16,6 +16,6 @@
 }
 
 - (id)initWithDelegate:(id <WebConnectionDelegate>)del;
-- (void)newConnectionWithURL:(NSURL*)url;
+- (void)newConnectionWithURL:(NSURL*)url andPostData:(NSData *)postData;
 
 @end
