@@ -3,7 +3,7 @@
 //  Words
 //
 //  Created by David Stalnaker on 1/9/11.
-//  Copyright 2011 Rochester Institute of Technology. All rights reserved.
+//  Copyright 2011 David Stalnaker. All rights reserved.
 //
 
 #import "Game.h"
@@ -59,7 +59,7 @@
 - (void)getNewWords {
 	if(!openConnection) {
 		openConnection = YES;
-		NSString *postData = [NSString stringWithFormat:@"numWords=%d", numWordsPerConnection];helf
+		NSString *postData = [NSString stringWithFormat:@"numWords=%d", numWordsPerConnection];
 		[connection newConnectionWithURL:
 		 [NSURL URLWithString: @"http://www.david-stalnaker.com/words/getWords.php"]
 							 andPostData:
