@@ -146,6 +146,7 @@
 	openConnection = NO;
 	waitingOnData = NO;
 	
+	[jsonString release];
 	[parser release];
 }
 
