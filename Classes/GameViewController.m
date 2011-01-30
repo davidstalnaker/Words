@@ -72,6 +72,10 @@
 	[self updateWord];
 }
 
+- (void)finishGame {
+	[UIAppDelegate finishGame];
+}
+
 
 
 - (void)didReceiveMemoryWarning {

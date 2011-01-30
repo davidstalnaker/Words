@@ -8,6 +8,7 @@
 
 #import "Game.h"
 
+
 @implementation Game
 
 @synthesize curWord;
@@ -100,6 +101,7 @@
 - (void)tick {
 	if(time <= 0) {
 		[self stopTimer];
+		[observer finishGame];
 	}
 	else {
 		[self addTime:-1];

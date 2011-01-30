@@ -20,6 +20,13 @@
 	[navController pushViewController:gameController animated:YES];
 	game = [[Game alloc] initWithObserver:gameController];
 	[gameController setGame:game];
+	[gameController updateTime];
+	[gameController updateScore];
+	[gameController updateWord];
+}
+
+- (void)finishGame {
+	[navController popViewControllerAnimated:YES];
 }
 
 #pragma mark -

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Word.h"
 #import "JSON/JSON.h"
+#import "WordsAppDelegate.h"
 #import "Game.h"
 
 @interface GameViewController : UIViewController <GameObserver> {
@@ -33,6 +34,7 @@
 - (void)updateTime;
 - (void)startWaiting;
 - (void)stopWaiting;
+- (void)finishGame;
 
 @property (readwrite, retain) Game *game;
 

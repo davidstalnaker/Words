@@ -13,6 +13,7 @@
 - (void) updateWord;
 - (void) updateTime;
 - (void) updateScore;
-- (void)startWaiting;
-- (void)stopWaiting;
+- (void) startWaiting;
+- (void) stopWaiting;
+- (void) finishGame;
 @end
