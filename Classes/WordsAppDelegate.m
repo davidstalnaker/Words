@@ -13,13 +13,13 @@
 
 @synthesize window;
 @synthesize navController;
-@synthesize viewController;
+@synthesize gameController;
 @synthesize mainWindowController;
 
 - (void)startGame {
-	[navController pushViewController:viewController animated:YES];
-	game = [[Game alloc] initWithObserver:viewController];
-	[viewController setGame:game];
+	[navController pushViewController:gameController animated:YES];
+	game = [[Game alloc] initWithObserver:gameController];
+	[gameController setGame:game];
 }
 
 #pragma mark -
@@ -86,7 +86,7 @@
 
 
 - (void)dealloc {
-    [viewController release];
+    [gameController release];
     [window release];
     [super dealloc];
 }

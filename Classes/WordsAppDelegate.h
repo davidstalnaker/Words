@@ -17,7 +17,7 @@
 @interface WordsAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
 	UINavigationController *navController;
-    GameViewController *viewController;
+    GameViewController *gameController;
 	MainViewController *mainWindowController;
 	
 	Game *game;
@@ -27,7 +27,7 @@
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UINavigationController *navController;
-@property (nonatomic, retain) IBOutlet GameViewController *viewController;
+@property (nonatomic, retain) IBOutlet GameViewController *gameController;
 @property (nonatomic, retain) IBOutlet MainViewController *mainWindowController;
 
 @end
