@@ -11,9 +11,29 @@
 
 @implementation Game
 
+#pragma mark Synthesis
+
 @synthesize curWord;
-@synthesize time;
-@synthesize points;
+
+- (void)setTime:(int)t {
+	time = t;
+	[observer updateTime];
+}
+
+- (int)time {
+	return self->time;
+}
+
+- (void)setPoints:(int)p {
+	points = p;
+	[observer updateScore];
+}
+
+- (int)points {
+	return self->points;
+}
+
+#pragma mark Lifecycle
 
 - (id)initWithObserver:(id <GameObserver>)obs {
 	self = [super init];
@@ -27,17 +47,31 @@
 		waitingOnData = NO;
 		openConnection = NO;
 		
-		time = 60;
-		points = 0;
+		self.time = 60;
+		self.points = 0;
 		
 		numWordsPerConnection = 10;
 		
 		[self getNewWords];
-		waitingOnData = YES;
 		[observer startWaiting];
 	}
 	return self;
 }
+
+- (void)newGame{
+	self.points = 0;
+	self.time = 60;
+	if(!openConnection) {
+		[self setNewWord];
+		[self startTimer];
+	}
+	else {
+		waitingOnData = YES;
+		[observer startWaiting];
+	}
+}
+
+#pragma mark Gameplay
 
 - (void)testWord:(NSString *)word{
 	if ([word isEqualToString:curWord.word]) {
@@ -46,14 +80,14 @@
 }
 
 - (void)skipWord {
-	[self addPoints:-20];
+	self.points -= 20;
 	[self setNewWord];
 }
 
 
 - (void)gotWordCorrect {
-	[self addPoints:50];
-	[self addTime:5];
+	self.points += 50;
+	self.time += 5;
 	[self setNewWord];
 }
 
@@ -88,23 +122,15 @@
 	}
 }
 
-- (void)addPoints:(int)numPoints {
-	points += numPoints;
-	[observer updateScore];
-}
-
-- (void)addTime:(int)numSecs {
-	time += numSecs;
-	[observer updateTime];
-}
+#pragma mark Timer
 
 - (void)tick {
-	if(time <= 0) {
+	if(self.time <= 0) {
 		[self stopTimer];
 		[observer finishGame];
 	}
 	else {
-		[self addTime:-1];
+		self.time--;
 	}
 }
 
@@ -122,14 +148,15 @@
 }
 
 - (void)resetTimer {
-	time = 60;
-	[observer updateTime];
+	self.time = 60;
 	timer = [NSTimer scheduledTimerWithTimeInterval:1.0
 											 target:self 
 										   selector:@selector(tick)
 										   userInfo:nil
 											repeats:YES];
 }
+
+#pragma mark GameObserver
 
 - (void)finishedLoading:(NSMutableData*)data {
 	SBJsonParser* parser = [[SBJsonParser alloc] init];

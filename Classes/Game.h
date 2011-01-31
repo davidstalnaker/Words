@@ -31,15 +31,14 @@
 }
 
 - (id)initWithObserver:(id <GameObserver>)obs;
+- (void)newGame;
+
 - (void)testWord:(NSString *)word;
 - (void)skipWord;
 - (void)gotWordCorrect;
-
 - (void)getNewWords;
 - (void)setNewWord;
 
-- (void)addPoints:(int)numPoints;
-- (void)addTime:(int)numSecs;
 - (void)startTimer;
 - (void)stopTimer;
 - (void)resetTimer;

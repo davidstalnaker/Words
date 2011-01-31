@@ -10,6 +10,7 @@
 
 
 @protocol GameObserver <NSObject>
+- (void) update;
 - (void) updateWord;
 - (void) updateTime;
 - (void) updateScore;

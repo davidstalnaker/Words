@@ -41,7 +41,11 @@
 	definition.text = defText;
 }
 
-
+- (void)update{
+	[self updateWord];
+	[self updateScore];
+	[self updateTime];
+}
 
 - (void)updateWord {
 	[self setDefinitionLabelText: game.curWord.definition];

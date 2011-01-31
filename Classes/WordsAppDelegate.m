@@ -18,11 +18,7 @@
 
 - (void)startGame {
 	[navController pushViewController:gameController animated:YES];
-	game = [[Game alloc] initWithObserver:gameController];
-	[gameController setGame:game];
-	[gameController updateTime];
-	[gameController updateScore];
-	[gameController updateWord];
+	[game newGame];
 }
 
 - (void)finishGame {
@@ -39,6 +35,9 @@
     // Add the view controller's view to the window and display.
     [self.window addSubview:navController.view];
     [self.window makeKeyAndVisible];
+	
+	game = [[Game alloc] initWithObserver:gameController];
+	[gameController setGame:game];
 
     return YES;
 }
