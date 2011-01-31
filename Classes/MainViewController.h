@@ -10,8 +10,10 @@
 
 
 @interface MainViewController : UIViewController {
-
+	IBOutlet UILabel *score;
 }
--(IBAction)startGame;
+
+- (IBAction)startGame;
+- (void)updateScore:(int)s;
 
 @end

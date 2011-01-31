@@ -23,6 +23,7 @@
 
 - (void)finishGame {
 	[navController popViewControllerAnimated:YES];
+	[mainWindowController updateScore:[game points]];
 }
 
 #pragma mark -
